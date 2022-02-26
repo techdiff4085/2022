@@ -3,9 +3,9 @@
 Components on the robots and supporting details
 
 Total:
-7 Never Rest, 6 Falcons, 1 CIM, 1 Snowblower = 15 total
+6 Never Rest, 6 Falcons, 1 CIM, 1 Snowblower = 14 total
 
-9 Motor Controllers, 6 limit switches
+8 Motor Controllers, 2 limit switches
 
 | Component | Motor Type | Limit Switch | CAN Port | DIO | PWM | Notes |
 | --------- | ---------- | ------------ | -------- | ----| --- | ----- |
@@ -17,10 +17,10 @@ Total:
 | Rake - Left (Intake Rollers)  | NeverRest + Motor Controller
 | Horizontal Intake - Left   | Never Rest + Motor Controllers
 | Horizontal Intake - Right  | Never Rest + Motor Controllers
-| Lift Vertical      | TBD  2 x Never Rest + 2 Motor Controllers | 4 limit switches
+| Lift Vertical      | TBD  1 x Never Rest + 2 Motor Controllers 
 | Elevator - Left | Never Rest + Motor Controller
 | Elevator - Right | Never Rest + Motor Controller
 | Shooter - Left  | Falcon
 | Shooter - Right  | Falcon
-| Climb   | CIM motor + motor controller
+| Climb   | CIM motor + Motor Controller
 
