@@ -13,11 +13,11 @@ Total:
 | Drive - Front Right    | Drive | Falcon
 | Drive - Rear Left    | Drive |Falcon
 | Drive - Rear Right    | Drive |Falcon
-| Rake - Right (Lift & Extend) | Drive |Snowblower + Motor Controller | 2 limit switches  
-| Rake - Left (Intake Rollers)  | Drive |NeverRest + Motor Controller
-| Horizontal Intake - Left   | Drive |Never Rest + Motor Controllers
-| Horizontal Intake - Right  | Drive |Never Rest + Motor Controllers
-| Lift Vertical      | Climb | TBD  1 x Never Rest + 2 Motor Controllers 
+| Rake - Right (Lift & Extend) | Intake |Snowblower + Motor Controller | 2 limit switches  
+| Rake - Left (Intake Rollers)  | Intake |NeverRest + Motor Controller
+| Horizontal Intake - Left   | Intake |Never Rest + Motor Controllers
+| Horizontal Intake - Right  | Intake |Never Rest + Motor Controllers
+| Lift Vertical      | Shoot | TBD  1 x Never Rest + 2 Motor Controllers 
 | Elevator - Left | Shoot| Never Rest + Motor Controller
 | Elevator - Right | Shoot | Never Rest + Motor Controller
 | Shooter - Left  | Shoot | Falcon
