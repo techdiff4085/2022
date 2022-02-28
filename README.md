@@ -8,7 +8,7 @@ Total:
 8 Motor Controllers, 2 limit switches
 
 | Component | Subsystem | Motor Type | Limit Switch | CAN Port | DIO | PWM | Notes |
-| --------- | ---------- | ------------ | -------- | ----| --- | ----- |
+| --------- | ---------- | ---------- | ------------ | -------- | ----| --- | ----- |
 | Drive - Front Left    | Drive | Falcon
 | Drive - Front Right    | Drive | Falcon
 | Drive - Rear Left    | Drive |Falcon
