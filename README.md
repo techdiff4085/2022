@@ -7,20 +7,20 @@ Total:
 
 8 Motor Controllers, 2 limit switches
 
-| Component | Motor Type | Limit Switch | CAN Port | DIO | PWM | Notes |
-| --------- | ---------- | ------------ | -------- | ----| --- | ----- |
-| Drive - Front Left    | Falcon
-| Drive - Front Right    | Falcon
-| Drive - Rear Left    | Falcon
-| Drive - Rear Right    | Falcon
-| Rake - Right (Lift & Extend) | Snowblower + Motor Controller | 2 limit switches  
-| Rake - Left (Intake Rollers)  | NeverRest + Motor Controller
-| Horizontal Intake - Left   | Never Rest + Motor Controllers
-| Horizontal Intake - Right  | Never Rest + Motor Controllers
-| Lift Vertical      | TBD  1 x Never Rest + 2 Motor Controllers 
-| Elevator - Left | Never Rest + Motor Controller
-| Elevator - Right | Never Rest + Motor Controller
-| Shooter - Left  | Falcon
-| Shooter - Right  | Falcon
-| Climb   | CIM motor + Motor Controller
+| Component | Subsystem | Motor Type | Limit Switch | CAN Port | DIO | PWM | Notes |
+| --------- | ---------- | ---------- | ------------ | -------- | ----| --- | ----- |
+| Drive - Front Left    | Drive | Falcon
+| Drive - Front Right    | Drive | Falcon
+| Drive - Rear Left    | Drive |Falcon
+| Drive - Rear Right    | Drive |Falcon
+| Rake - Right (Lift & Extend) | Drive |Snowblower + Motor Controller | 2 limit switches  
+| Rake - Left (Intake Rollers)  | Drive |NeverRest + Motor Controller
+| Horizontal Intake - Left   | Drive |Never Rest + Motor Controllers
+| Horizontal Intake - Right  | Drive |Never Rest + Motor Controllers
+| Lift Vertical      | Climb | TBD  1 x Never Rest + 2 Motor Controllers 
+| Elevator - Left | Shoot| Never Rest + Motor Controller
+| Elevator - Right | Shoot | Never Rest + Motor Controller
+| Shooter - Left  | Shoot | Falcon
+| Shooter - Right  | Shoot| Falcon
+| Climb   | Climb|  CIM motor + Motor Controller
 
