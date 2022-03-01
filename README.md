@@ -9,18 +9,17 @@ Total:
 
 | Component | Subsystem | Motor Type | Limit Switch | CAN Port | DIO | PWM | Notes |
 | --------- | ---------- | ---------- | ------------ | -------- | ----| --- | ----- |
-| Drive - Front Left    | Drive | Falcon FX
-| Drive - Front Right    | Drive | Falcon FX
-| Drive - Rear Left    | Drive |Falcon FX
-| Drive - Rear Right    | Drive |Falcon FX
-| Rake - Right (Lift & Extend) | Intake |Snowblower + Motor Controller | 2 limit switches  
-| Rake - Left (Intake Rollers)  | Intake |NeverRest + Motor Controller
-| Horizontal Intake - Left   | Intake |Never Rest + Motor Controllers
-| Horizontal Intake - Right  | Intake |Never Rest + Motor Controllers
-| Lift Vertical      | Shoot | TBD  1 x Never Rest + 2 Motor Controllers 
-| Elevator - Left | Shoot| Never Rest + Motor Controller
-| Elevator - Right | Shoot | Never Rest + Motor Controller
-| Shooter - Left  | Shoot | Falcon FX
-| Shooter - Right  | Shoot| Falcon FX
-| Climb   | Climb|  CIM motor + Motor Controller
+| Drive - Front Left    | Drive | Falcon WPI_TalonFX 
+| Drive - Front Right    | Drive | Falcon WPI_TalonFX 
+| Drive - Rear Left    | Drive | Falcon WPI_TalonFX 
+| Drive - Rear Right    | Drive | Falcon WPI_TalonFX 
+| Rake - Right (Lift & Extend) | Intake |Snowblower (WPI_VictorSPX) + Motor Controller | 2 limit switches  
+| Rake - Left (Intake Rollers)  | Intake |NeveRest (WPI_VictorSPX) + Motor Controller
+| Horizontal Intake - Left   | Intake |NeveRest (WPI_VictorSPX) + Motor Controllers
+| Horizontal Intake - Right  | Intake |NeveRest (WPI_VictorSPX) + Motor Controllers
+| Elevator - Middle  | Shoot | NeveRest (WPI_VictorSPX) + 2 Motor Controllers 
+| Elevator - Left | Shoot| NeveRest (WPI_VictorSPX) + Motor Controller
+| Elevator - Right | Shoot | NeveRest (WPI_VictorSPX) + Motor Controller
+| Shooter  | Shoot | Falcon WPI_TalonFX 
+| Climb   | Climb|  CIM motor (WPI_VictorSPX) + Motor Controller
 
