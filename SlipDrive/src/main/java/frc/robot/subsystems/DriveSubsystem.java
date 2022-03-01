@@ -15,7 +15,9 @@ public class DriveSubsystem extends SubsystemBase {
   private WPI_TalonFX backLeft = new WPI_TalonFX(Constants.LeftBackWheel);
   private WPI_TalonFX frontRight = new WPI_TalonFX(Constants.RightFrontWheel);
   private WPI_TalonFX backRight = new WPI_TalonFX(Constants.RightBackWheel);
+
   private MecanumDrive mecanumDrive;
+  private boolean isFastMode = false;
     /** Creates a new ExampleSubsystem. */
   public DriveSubsystem() {
     mecanumDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
@@ -28,6 +30,14 @@ public class DriveSubsystem extends SubsystemBase {
     mecanumDrive.driveCartesian(y, x, z);
   }
   
+public void toggleFastMode(){
+  isFastMode = !isFastMode;
+}
+
+public boolean getisFastMode(){
+  return isFastMode;
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
