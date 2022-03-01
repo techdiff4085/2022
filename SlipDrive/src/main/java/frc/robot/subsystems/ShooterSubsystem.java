@@ -5,11 +5,25 @@
 //Initial Shooter Subsytem
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
-  public ShooterSubsystem() {}
+  private WPI_VictorSPX elevatorLeft = new WPI_VictorSPX(Constants.elevatorLeft);
+  private WPI_VictorSPX elevatorRight = new WPI_VictorSPX(Constants.elevatorRight);
+  private WPI_VictorSPX elevatorMiddle = new WPI_VictorSPX(Constants.elevatorMiddle);
+  private WPI_VictorSPX shooter = new WPI_VictorSPX(Constants.shooter);
+
+  public ShooterSubsystem() {
+  //Start shooter motor
+  }
+
+  private void shoot(){
+    //Start three elevator motors
+
+  }
 
   @Override
   public void periodic() {
