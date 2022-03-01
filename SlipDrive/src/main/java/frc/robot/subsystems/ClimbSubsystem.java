@@ -4,11 +4,20 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ClimbSubsystem extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
+  
+ private WPI_VictorSPX climb = new WPI_VictorSPX(Constants.Climb);
+
   public ClimbSubsystem() {}
+
+  public void raiseClimb(){}
+
+  public void lowerClimb(){}
 
   @Override
   public void periodic() {

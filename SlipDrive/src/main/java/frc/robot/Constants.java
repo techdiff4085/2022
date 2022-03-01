@@ -27,4 +27,5 @@ public final class Constants {
     public static final int HorizontalRight = 0;
     public static final int HorizontalLeft = 0;
     public static final int UpperLimitSwitch = 0;
-    public static final int LowerLimitSwitch = 0;}
+    public static final int LowerLimitSwitch = 0;
+    public static final int Climb = 0;}
