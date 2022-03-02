@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,13 +31,18 @@ public class DriveSubsystem extends SubsystemBase {
     mecanumDrive.driveCartesian(y, x, z);
   }
   
-public void toggleFastMode(){
-  isFastMode = !isFastMode;
-}
+  public void toggleFastMode(){
+    isFastMode = !isFastMode;
+  }
 
-public boolean getisFastMode(){
-  return isFastMode;
-}
+  public boolean getisFastMode(){
+    return isFastMode;
+  }
+
+  public void turnToAngle(double turnToAngle, AHRS navX) {
+    mecanumDrive.driveCartesian(0, 0, turnToAngle, navX.getYaw());
+  }
+
 
   @Override
   public void periodic() {
@@ -47,4 +53,6 @@ public boolean getisFastMode(){
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+
+
 }

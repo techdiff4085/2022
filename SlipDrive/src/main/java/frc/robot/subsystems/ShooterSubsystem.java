@@ -20,7 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
   //Start shooter motor
   }
 
-  private void shoot(){
+  public void shoot(){
     //Start three elevator motors
 
   }

@@ -4,23 +4,37 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
+
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/** An example command that uses an example subsystem. */
-public class ToggleFastModeCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveSubsystem m_subsystem;
 
+/** An example command that uses an example subsystem. */
+public class TurnToAngleCommand extends CommandBase {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  private final DriveSubsystem m_driveSubsystem;
+  private final AHRS m_navX;
+  private final double m_turnToAngle;
+  private final PIDController m_controller;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ToggleFastModeCommand(DriveSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public TurnToAngleCommand(DriveSubsystem driveSubsystem, AHRS navX, double turnToAngle) {
+    
+    m_driveSubsystem = driveSubsystem;
+    m_navX = navX;
+    m_turnToAngle = turnToAngle;
+    m_controller = new PIDController(Constants.KP, Constants.KI, Constants.KD);
+    m_controller.enableContinuousInput(-180, 180);
+
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +44,8 @@ public class ToggleFastModeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.toggleFastMode();
+    double rate = m_controller.calculate(m_navX.getYaw(), m_turnToAngle); 
+    m_driveSubsystem.turnToAngle(rate/2, m_navX);  
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +55,6 @@ public class ToggleFastModeCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return m_navX.getYaw() >= m_turnToAngle;
   }
 }
