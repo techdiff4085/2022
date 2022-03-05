@@ -13,7 +13,7 @@ Total:
 | Drive - Front Right    | Drive | Falcon WPI_TalonFX 
 | Drive - Rear Left    | Drive | Falcon WPI_TalonFX 
 | Drive - Rear Right    | Drive | Falcon WPI_TalonFX 
-| Rake - Right (Lift & Extend) | Intake |Snowblower + Motor Controller (WPI_VictorSPX)  | 2 limit switches  
+| Rake - Right (Lift) | Intake | <motor> + Motor Controller (WPI_VictorSPX)  | 2 limit switches |||| set to 35% power , NOT 50%
 | Rake - Left (Intake Rollers)  | Intake |NeveRest  + Motor Controller (WPI_VictorSPX)
 | Horizontal Intake - Left   | Intake |NeveRest  + Motor Controllers (WPI_VictorSPX)
 | Horizontal Intake - Right  | Intake |NeveRest  + Motor Controllers (WPI_VictorSPX)
