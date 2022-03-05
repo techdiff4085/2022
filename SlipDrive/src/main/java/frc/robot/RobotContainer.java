@@ -39,7 +39,21 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+  //Confirm buttons with Caitlyn
+  //Driver - X button - toggle drive speed 
+  //Driver - left and/or right xbox toggle joysticks - Caitlyn's choice
+  //Driver - extend arm button
+  //Driver - retract arm button
+
+  //Confirm buttons with Brendon
+  //Shooter - shoot button - motors ON (left & right & middle & top motor)
+  //Shooter - shoot button - motors OFF (left & right & middle & top motor)
+  //Shooter - button to drop rake & start 2 intake motors
+  //Shooter - button to raise rake (may be needed during 'Hang"')
+ 
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
