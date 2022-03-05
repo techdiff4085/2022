@@ -23,3 +23,17 @@ Total:
 | Shooter  | Shoot | Falcon WPI_TalonFX 
 | Climb   | Climb|  CIM motor + Motor Controller (WPI_VictorSPX)
 
+Buttons
+| Remote Type | Button Function | Xbox button |
+| ----------- | --------------- | ----------- |  
+| Driver | Toggle Drive Speed | ? |
+| Driver | Turn 180 degrees | ? |
+| Driver | extend arms | ? |
+| Driver | lower arms | ? |
+| Shooter | Shoot motors on | ? |
+| Shooter | Shoot motors off | ? |
+| Shooter | drop rake & turn ON rake intake motor + horizontal motors | ? |
+| Shooter | lift rake & turn OFF rake intake motor + horizontal motors | ? |  
+  
+  
+  
