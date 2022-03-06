@@ -11,21 +11,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  private WPI_VictorSPX rakeRight = new WPI_VictorSPX(Constants.RakeRight);
-  private WPI_VictorSPX rakeLeft = new WPI_VictorSPX(Constants.RakeLeft);
-  private WPI_VictorSPX horizontalRight = new WPI_VictorSPX(Constants.HorizontalRight);
-  private WPI_VictorSPX horizontalLeft = new WPI_VictorSPX(Constants.HorizontalLeft);
-  private DigitalInput upperLimitSwitch = new DigitalInput(Constants.UpperLimitSwitch);
-  private DigitalInput lowerLimitSwitch = new DigitalInput(Constants.LowerLimitSwitch);
+  private WPI_VictorSPX rakeLiftLower = new WPI_VictorSPX(Constants.Motors.RakeLiftLower);
+  private WPI_VictorSPX rakeIntake = new WPI_VictorSPX(Constants.Motors.RakeIntake);
+  private WPI_VictorSPX horizontalRight = new WPI_VictorSPX(Constants.Motors.HorizontalRight);
+  private WPI_VictorSPX horizontalLeft = new WPI_VictorSPX(Constants.Motors.HorizontalLeft);
+  private DigitalInput upperLimitSwitch = new DigitalInput(Constants.Motors.UpperLimitSwitch);
+  private DigitalInput lowerLimitSwitch = new DigitalInput(Constants.Motors.LowerLimitSwitch);
 
   public IntakeSubsystem() {}
 
   public void dropRake() {
-   //This lowers rakeRight and rakeLeft until it hits the lower limit switch.
+   //This lowers rakeLifeLower until it hits the lower limit switch.
   }
 
   public void liftRake() {
-    //This raises rakeRight and rakeLeft until it his the upper limit switch.
+    //This raises rakeLifeLower until it his the upper limit switch.
   }
 
   public void rakePull() {

@@ -11,7 +11,7 @@ import frc.robot.Constants;
 
 public class ClimbSubsystem extends SubsystemBase {
   
- private WPI_VictorSPX climb = new WPI_VictorSPX(Constants.Climb);
+ private WPI_VictorSPX climb = new WPI_VictorSPX(Constants.Motors.Climb);
 
   public ClimbSubsystem() {}
 

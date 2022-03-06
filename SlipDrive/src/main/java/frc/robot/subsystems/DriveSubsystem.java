@@ -12,10 +12,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
-  private WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.LeftFrontWheel);
-  private WPI_TalonFX backLeft = new WPI_TalonFX(Constants.LeftBackWheel);
-  private WPI_TalonFX frontRight = new WPI_TalonFX(Constants.RightFrontWheel);
-  private WPI_TalonFX backRight = new WPI_TalonFX(Constants.RightBackWheel);
+  private WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.Motors.LeftFrontWheel);
+  private WPI_TalonFX backLeft = new WPI_TalonFX(Constants.Motors.LeftBackWheel);
+  private WPI_TalonFX frontRight = new WPI_TalonFX(Constants.Motors.RightFrontWheel);
+  private WPI_TalonFX backRight = new WPI_TalonFX(Constants.Motors.RightBackWheel);
 
   private MecanumDrive mecanumDrive;
   private boolean isFastMode = false;

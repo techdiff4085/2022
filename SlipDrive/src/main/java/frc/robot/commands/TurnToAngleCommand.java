@@ -30,7 +30,7 @@ public class TurnToAngleCommand extends CommandBase {
     m_driveSubsystem = driveSubsystem;
     m_navX = navX;
     m_turnToAngle = turnToAngle;
-    m_controller = new PIDController(Constants.KP, Constants.KI, Constants.KD);
+    m_controller = new PIDController(Constants.Motors.KP, Constants.Motors.KI, Constants.Motors.KD);
     m_controller.enableContinuousInput(-180, 180);
 
     // Use addRequirements() here to declare subsystem dependencies.
