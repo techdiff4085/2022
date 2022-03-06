@@ -41,16 +41,17 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
   //Confirm buttons with Caitlyn
-  //Driver - X button - toggle drive speed 
+  //Driver - X button - toggle drive speed (SLOW / FAST)
   //Driver - left and/or right xbox toggle joysticks - Caitlyn's choice
+  //Driver - turn 180 degrees
   //Driver - extend arm button
   //Driver - retract arm button
 
   //Confirm buttons with Brendon
   //Shooter - shoot button - motors ON (left & right & middle & top motor)
   //Shooter - shoot button - motors OFF (left & right & middle & top motor)
-  //Shooter - button to drop rake & start 2 intake motors
-  //Shooter - button to raise rake (may be needed during 'Hang"')
+  //Shooter - button to drop rake & start Rake Intake motors + 2 Horizontal Intake motors
+  //Shooter - button to turn off the 3 Rake & Horizontal motors & lift rake (may be needed during 'Hang"')
  
 
   }

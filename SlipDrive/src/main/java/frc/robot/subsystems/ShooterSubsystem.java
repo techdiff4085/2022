@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
-  private WPI_VictorSPX elevatorLeft = new WPI_VictorSPX(Constants.elevatorLeft);
-  private WPI_VictorSPX elevatorRight = new WPI_VictorSPX(Constants.elevatorRight);
-  private WPI_VictorSPX elevatorMiddle = new WPI_VictorSPX(Constants.elevatorMiddle);
-  private WPI_VictorSPX shooter = new WPI_VictorSPX(Constants.shooter);
+  private WPI_VictorSPX elevatorLeft = new WPI_VictorSPX(Constants.Motors.elevatorLeft);
+  private WPI_VictorSPX elevatorRight = new WPI_VictorSPX(Constants.Motors.elevatorRight);
+  private WPI_VictorSPX elevatorMiddle = new WPI_VictorSPX(Constants.Motors.elevatorMiddle);
+  private WPI_VictorSPX shooter = new WPI_VictorSPX(Constants.Motors.shooter);
 
   public ShooterSubsystem() {
   //Start shooter motor
