@@ -15,10 +15,10 @@ package frc.robot;
 public final class Constants {
 
     public static final class Motors {
-        public static final int LeftFrontWheel = 00;
-        public static final int LeftBackWheel = 0;
+        public static final int LeftFrontWheel = 12;
+        public static final int LeftBackWheel = 13;
         public static final int RightBackWheel = 0;
-        public static final int RightFrontWheel = 0;
+        public static final int RightFrontWheel = 2;
         public static final int elevatorLeft = 0;
         public static final int elevatorMiddle = 0;
         public static final int elevatorRight = 0;
