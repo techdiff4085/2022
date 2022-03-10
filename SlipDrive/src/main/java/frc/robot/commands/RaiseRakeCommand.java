@@ -30,7 +30,8 @@ public class RaiseRakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeSubsystem.liftRake();
+    m_intakeSubsystem.stopIntake();
+   // m_intakeSubsystem.liftRake();
   }
 
   // Called once the command ends or is interrupted.
@@ -40,9 +41,8 @@ public class RaiseRakeCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
     // if subsystem limit switch is triggered then return true
     //  otherwise return false.
-    return false;
-  }
+    return m_intakeSubsystem.isUpperLimitSwitchHit();
+}
 }

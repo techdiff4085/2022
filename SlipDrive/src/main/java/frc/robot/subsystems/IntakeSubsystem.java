@@ -15,18 +15,71 @@ public class IntakeSubsystem extends SubsystemBase {
   private WPI_VictorSPX rakeIntake = new WPI_VictorSPX(Constants.Motors.RakeIntake);
   private WPI_VictorSPX horizontalRight = new WPI_VictorSPX(Constants.Motors.HorizontalRight);
   private WPI_VictorSPX horizontalLeft = new WPI_VictorSPX(Constants.Motors.HorizontalLeft);
-  private DigitalInput upperLimitSwitch = new DigitalInput(Constants.Motors.UpperLimitSwitch);
-  private DigitalInput lowerLimitSwitch = new DigitalInput(Constants.Motors.LowerLimitSwitch);
+  private DigitalInput upperLimitSwitch = new DigitalInput(Constants.LimitSwitches.RAKEUP);
+  private DigitalInput lowerLimitSwitch = new DigitalInput(Constants.LimitSwitches.RAKEDOWN);
+  private DigitalInput shooterLimitSwitch = new DigitalInput(Constants.LimitSwitches.SHOOT);
+  
 
   public IntakeSubsystem() {}
 
   public void dropRake() {
    //This lowers rakeLifeLower until it hits the lower limit switch.
+    rakeLiftLower.set(-0.5);
   }
 
   public void liftRake() {
-    //This raises rakeLifeLower until it his the upper limit switch.
+    rakeLiftLower.set(0.5);
   }
+
+  public boolean isUpperLimitSwitchHit(){
+    if (upperLimitSwitch.get()){
+      rakeLiftLower.set(0);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isLowerLimitSwitchHit(){
+    if (lowerLimitSwitch.get()){
+      rakeLiftLower.set(0);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isShooterLimitSwitchHit(){
+    if (shooterLimitSwitch.get()){
+      horizontalLeft.set(0);
+      horizontalRight.set(0);
+      return true;
+    } else {
+      horizontalLeft.set(0.5);
+      horizontalRight.set(0.5);
+      return false;
+    }
+  }
+
+  public void startIntake(){
+    //This starts the motor on the rake.
+    rakeIntake.set(0.5);
+  } 
+
+  public void stopIntake(){
+    //This stops the motor on the rake.
+    rakeIntake.set(0);
+  } 
+
+  public void startHorizontalMotors(){
+    //This starts the motor on the rake.
+    horizontalLeft.set(0.5);
+    horizontalRight.set(0.5);
+  } 
+
+  public void stopHorizontalMotors(){
+    //This starts the motor on the rake.
+    horizontalLeft.set(0);
+    horizontalRight.set(0);
+  } 
 
   public void rakePull() {
     //Starts horizonal motors.

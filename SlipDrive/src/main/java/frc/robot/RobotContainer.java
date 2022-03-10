@@ -4,14 +4,23 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.DriveAutonomousCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DropRakeCommand;
+import frc.robot.commands.RaiseRakeCommand;
+import frc.robot.commands.ToggleFastModeCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,6 +37,7 @@ public class RobotContainer {
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_shooterController = new XboxController(1);
   private final DriveCommand m_DriveCommand = new DriveCommand(m_driveSubsystem, m_driverController);
+  private final AHRS navX = new AHRS(SPI.Port.kMXP);
 
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -36,6 +46,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(m_DriveCommand);
+    SmartDashboard.putBoolean("Fastmode on", m_driveSubsystem.getisFastMode());
   }
 
   /**
@@ -45,6 +56,17 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    JoystickButton buttonX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+    buttonX.whenActive(new ToggleFastModeCommand(m_driveSubsystem));
+
+     JoystickButton buttonB = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+    buttonB.whenActive(new DriveAutonomousCommand(m_driveSubsystem, 0, 0, 0.6, 260));
+
+    JoystickButton buttonY = new JoystickButton(m_shooterController, XboxController.Button.kY.value);
+    buttonY.whenActive(new RaiseRakeCommand(m_intakeSubsystem));
+
+    JoystickButton buttonA = new JoystickButton(m_shooterController, XboxController.Button.kA.value);
+    buttonA.whenActive(new DropRakeCommand(m_intakeSubsystem));
   //Confirm buttons with Caitlyn
   //Driver - X button - toggle drive speed (SLOW / FAST)
   //Driver - left and/or right xbox toggle joysticks - Caitlyn's choice
@@ -57,8 +79,6 @@ public class RobotContainer {
   //Shooter - shoot button - motors OFF (left & right & middle & top motor)
   //Shooter - button to drop rake & start Rake Intake motors + 2 Horizontal Intake motors
   //Shooter - button to turn off the 3 Rake & Horizontal motors & lift rake (may be needed during 'Hang"')
- 
-
   }
 
   /**
@@ -69,5 +89,13 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return null;
+  }
+
+  public void RunHorizontalMotors(){
+    if (m_intakeSubsystem.isShooterLimitSwitchHit()){
+      m_intakeSubsystem.stopHorizontalMotors();
+    } else {
+      m_intakeSubsystem.startHorizontalMotors();
+    }
   }
 }
