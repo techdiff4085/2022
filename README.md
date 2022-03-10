@@ -13,7 +13,7 @@ Total:
 | Drive - Front Right    | Drive | Falcon WPI_TalonFX 
 | Drive - Rear Left    | Drive | Falcon WPI_TalonFX 
 | Drive - Rear Right    | Drive | Falcon WPI_TalonFX 
-| Rake - Right (Lift) | Intake | <motor> + Motor Controller (WPI_VictorSPX)  | 2 limit switches |||| set to 35% power , NOT 50%
+| Rake - Right (Lift) | Intake | snowblower motor + Motor Controller (WPI_VictorSPX)  | 2 limit switches |||| 
 | Rake - Left (Intake Rollers)  | Intake |NeveRest  + Motor Controller (WPI_VictorSPX)
 | Horizontal Intake - Left   | Intake |NeveRest  + Motor Controllers (WPI_VictorSPX)
 | Horizontal Intake - Right  | Intake |NeveRest  + Motor Controllers (WPI_VictorSPX)
@@ -35,5 +35,12 @@ Buttons
 | Shooter | drop rake & turn ON rake intake motor + horizontal motors | ? |
 | Shooter | lift rake & turn OFF rake intake motor + horizontal motors | ? |  
   
-  
+Instructions:
+1) Turn on upper shooter motor at beginning of teleop
+2) Rake down turns on rake intake motor
+3) While corner limit switch IS NOT triggered and rake is down, run horizontal intake motors.
+4) When corner limit switch IS triggered, then turn off horizontal intake motors.
+5) There are no xbox buttons for the horizontal intake motors.
+6) Shoot button triggers left,middle,right shoot motors. 
+
   
