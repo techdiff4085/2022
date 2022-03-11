@@ -15,10 +15,11 @@ public class IntakeSubsystem extends SubsystemBase {
   private WPI_VictorSPX rakeIntake = new WPI_VictorSPX(Constants.Motors.RakeIntake);
   private WPI_VictorSPX horizontalRight = new WPI_VictorSPX(Constants.Motors.HorizontalRight);
   private WPI_VictorSPX horizontalLeft = new WPI_VictorSPX(Constants.Motors.HorizontalLeft);
+  /*
   private DigitalInput upperLimitSwitch = new DigitalInput(Constants.LimitSwitches.RAKEUP);
   private DigitalInput lowerLimitSwitch = new DigitalInput(Constants.LimitSwitches.RAKEDOWN);
   private DigitalInput shooterLimitSwitch = new DigitalInput(Constants.LimitSwitches.SHOOT);
-  
+  */
 
   public IntakeSubsystem() {}
 
@@ -30,7 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void liftRake() {
     rakeLiftLower.set(0.5);
   }
-
+/*
   public boolean isUpperLimitSwitchHit(){
     if (upperLimitSwitch.get()){
       rakeLiftLower.set(0);
@@ -58,10 +59,10 @@ public class IntakeSubsystem extends SubsystemBase {
       return false;
     }
   }
-
+*/
   public void startIntake(){
     //This starts the motor on the rake.
-    rakeIntake.set(0.5);
+    rakeIntake.set(1);
   } 
 
   public void stopIntake(){
@@ -80,14 +81,6 @@ public class IntakeSubsystem extends SubsystemBase {
     horizontalLeft.set(0);
     horizontalRight.set(0);
   } 
-
-  public void rakePull() {
-    //Starts horizonal motors.
-  }
-
-  public void rakeStop() {
-    //Stops horzontal motors.
-  }
 
   @Override
   public void periodic() {

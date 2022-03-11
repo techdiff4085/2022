@@ -19,25 +19,23 @@ public final class Constants {
         public static final int LeftBackWheel = 15;
         public static final int RightBackWheel = 1;
         public static final int RightFrontWheel = 0;
-        public static final int elevatorLeft = 0;
-        public static final int elevatorMiddle = 0;
-        public static final int elevatorRight = 0;
-        public static final int shooter = 0;
-        public static final int RakeLiftLower = 0;
-        public static final int RakeIntake = 11;
-        public static final int HorizontalRight = 0;
-        public static final int HorizontalLeft = 0;
-        public static final int UpperLimitSwitch = 0;
-        public static final int LowerLimitSwitch = 0;
-        public static final int Climb = 0;
+        public static final int elevatorLeft = 11;
+        public static final int elevatorMiddle = 9;
+        public static final int elevatorRight = 4;
+        public static final int shooter = 12;
+        public static final int RakeLiftLower = 2;
+        public static final int RakeIntake = 10;
+        public static final int HorizontalRight = 7;
+        public static final int HorizontalLeft = 8;
+        public static final int Climb = 3;
         public static final double KP = 0.05f;
         public static final double KI = 0;
         public static final double KD = 0.001;
     }   
     public static final class LimitSwitches{
-        public static final int RAKEUP = 0;
-        public static final int RAKEDOWN = 0;
-        public static final int SHOOT = 0;
+        public static final int RAKEUP = 7;
+        public static final int RAKEDOWN = 8;
+        public static final int SHOOT = 9;
     }
 
 

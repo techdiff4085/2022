@@ -43,6 +43,7 @@ public class RaiseRakeCommand extends CommandBase {
   public boolean isFinished() {
     // if subsystem limit switch is triggered then return true
     //  otherwise return false.
-    return m_intakeSubsystem.isUpperLimitSwitchHit();
+   // return m_intakeSubsystem.isUpperLimitSwitchHit();
+   return false;
 }
 }

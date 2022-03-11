@@ -13,11 +13,19 @@ public class ClimbSubsystem extends SubsystemBase {
   
  private WPI_VictorSPX climb = new WPI_VictorSPX(Constants.Motors.Climb);
 
-  public ClimbSubsystem() {}
+  public ClimbSubsystem(){}
 
-  public void raiseClimb(){}
+  public void raiseClimb(){
+    climb.set(0.5);
+  }
 
-  public void lowerClimb(){}
+  public void lowerClimb(){
+    climb.set(-0.5);
+  }
+
+  public void stopClimb(){
+    climb.set(0);
+  }
 
   @Override
   public void periodic() {

@@ -18,11 +18,20 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public ShooterSubsystem() {
   //Start shooter motor
+  shooter.set(0.35);
   }
 
   public void shoot(){
     //Start three elevator motors
+    elevatorLeft.set(0.5);
+    elevatorRight.set(0.5);
+    elevatorMiddle.set(0.5);
+  }
 
+  public void stop(){
+    elevatorLeft.set(0);
+    elevatorRight.set(0);
+    elevatorMiddle.set(0);
   }
 
   @Override

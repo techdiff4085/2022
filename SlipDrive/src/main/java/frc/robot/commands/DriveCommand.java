@@ -40,7 +40,7 @@ public class DriveCommand extends CommandBase {
     if (m_drivesubsystem.getisFastMode()){
       m_drivesubsystem.drive(y, x, z);
     } else {
-      m_drivesubsystem.drive(y/8, x/8, z/6);
+      m_drivesubsystem.drive(y/2, x/2, z/2);
     }
   }
 
