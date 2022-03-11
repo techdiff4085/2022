@@ -20,6 +20,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -59,14 +61,14 @@ public class RobotContainer {
     JoystickButton buttonX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
     buttonX.whenActive(new ToggleFastModeCommand(m_driveSubsystem));
 
-     JoystickButton buttonB = new JoystickButton(m_driverController, XboxController.Button.kB.value);
-    buttonB.whenActive(new DriveAutonomousCommand(m_driveSubsystem, 0, 0, 0.6, 260));
+    JoystickButton buttonB = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+    buttonB.whenActive(new DriveAutonomousCommand(m_driveSubsystem, 0, 0, 1, 700));
 
-    JoystickButton buttonY = new JoystickButton(m_shooterController, XboxController.Button.kY.value);
-    buttonY.whenActive(new RaiseRakeCommand(m_intakeSubsystem));
+    JoystickButton leftBumb = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+    leftBumb.whenHeld(new StartEndCommand(m_climbSubsystem::raiseClimb, m_climbSubsystem::stopClimb));
 
-    JoystickButton buttonA = new JoystickButton(m_shooterController, XboxController.Button.kA.value);
-    buttonA.whenActive(new DropRakeCommand(m_intakeSubsystem));
+    JoystickButton rightBumb = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+    rightBumb.whenHeld(new StartEndCommand(m_climbSubsystem::lowerClimb, m_climbSubsystem::stopClimb));
   //Confirm buttons with Caitlyn
   //Driver - X button - toggle drive speed (SLOW / FAST)
   //Driver - left and/or right xbox toggle joysticks - Caitlyn's choice
@@ -74,6 +76,14 @@ public class RobotContainer {
   //Driver - extend arm button
   //Driver - retract arm button
 
+  JoystickButton buttonY = new JoystickButton(m_shooterController, XboxController.Button.kY.value);
+  buttonY.whenActive(new RaiseRakeCommand(m_intakeSubsystem));
+
+  JoystickButton buttonA = new JoystickButton(m_shooterController, XboxController.Button.kA.value);
+  buttonA.whenActive(new DropRakeCommand(m_intakeSubsystem));
+
+  JoystickButton rightShoot = new JoystickButton(m_shooterController, XboxController.Button.kRightBumper.value);
+    rightShoot.whenPressed(new StartEndCommand(m_shooterSubsystem::shoot, m_shooterSubsystem::stop));
   //Confirm buttons with Brendon
   //Shooter - shoot button - motors ON (left & right & middle & top motor)
   //Shooter - shoot button - motors OFF (left & right & middle & top motor)
@@ -88,9 +98,12 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return new SequentialCommandGroup(
+      new DriveAutonomousCommand(m_driveSubsystem, -0.5, 0, 0, 500),
+      new DriveAutonomousCommand(m_driveSubsystem, 0.5, 0, 0, 500)
+    );
   }
-
+/*
   public void RunHorizontalMotors(){
     if (m_intakeSubsystem.isShooterLimitSwitchHit()){
       m_intakeSubsystem.stopHorizontalMotors();
@@ -98,4 +111,5 @@ public class RobotContainer {
       m_intakeSubsystem.startHorizontalMotors();
     }
   }
+  */
 }

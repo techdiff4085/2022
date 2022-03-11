@@ -19,12 +19,12 @@ public class DriveSubsystem extends SubsystemBase {
   private WPI_TalonFX backRight = new WPI_TalonFX(Constants.Motors.RightBackWheel);
 
   private MecanumDrive mecanumDrive;
-  private boolean isFastMode = false;
+  private boolean isFastMode = true;
     /** Creates a new ExampleSubsystem. */
   public DriveSubsystem() {
     mecanumDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
-    frontRight.setInverted(true);
-    backRight.setInverted(true);
+    frontLeft.setInverted(true);
+    backLeft.setInverted(true);
 
   }
 
