@@ -31,7 +31,7 @@ public class DropRakeCommand extends CommandBase {
   @Override
   public void execute() {
     m_intakeSubsystem.startIntake();
-    //m_intakeSubsystem.dropRake();
+    m_intakeSubsystem.dropRake();
   }
 
   // Called once the command ends or is interrupted.
@@ -41,7 +41,7 @@ public class DropRakeCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return m_intakeSubsystem.isLowerLimitSwitchHit();
-    return false;
+    return m_intakeSubsystem.isLowerLimitSwitchHit();
+    //return false;
   }
 }

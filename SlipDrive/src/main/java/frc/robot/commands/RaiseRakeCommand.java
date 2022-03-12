@@ -31,7 +31,7 @@ public class RaiseRakeCommand extends CommandBase {
   @Override
   public void execute() {
     m_intakeSubsystem.stopIntake();
-   // m_intakeSubsystem.liftRake();
+   m_intakeSubsystem.liftRake();
   }
 
   // Called once the command ends or is interrupted.
@@ -43,7 +43,7 @@ public class RaiseRakeCommand extends CommandBase {
   public boolean isFinished() {
     // if subsystem limit switch is triggered then return true
     //  otherwise return false.
-   // return m_intakeSubsystem.isUpperLimitSwitchHit();
-   return false;
+   return m_intakeSubsystem.isUpperLimitSwitchHit();
+   //return false;
 }
 }
