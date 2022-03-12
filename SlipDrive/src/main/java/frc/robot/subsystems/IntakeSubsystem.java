@@ -25,11 +25,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void dropRake() {
    //This lowers rakeLifeLower until it hits the lower limit switch.
-    rakeLiftLower.set(-0.5);
+    rakeLiftLower.set(-0.2);
   }
 
   public void liftRake() {
-    rakeLiftLower.set(1);
+    rakeLiftLower.set(0.8);
   }
 
   public boolean isUpperLimitSwitchHit(){
