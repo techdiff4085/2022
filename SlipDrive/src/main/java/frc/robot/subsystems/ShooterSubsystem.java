@@ -5,6 +5,7 @@
 //Initial Shooter Subsytem
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,18 +15,25 @@ public class ShooterSubsystem extends SubsystemBase {
   private WPI_VictorSPX elevatorLeft = new WPI_VictorSPX(Constants.Motors.elevatorLeft);
   private WPI_VictorSPX elevatorRight = new WPI_VictorSPX(Constants.Motors.elevatorRight);
   private WPI_VictorSPX elevatorMiddle = new WPI_VictorSPX(Constants.Motors.elevatorMiddle);
-  private WPI_VictorSPX shooter = new WPI_VictorSPX(Constants.Motors.shooter);
+  private WPI_TalonFX shooter = new WPI_TalonFX(Constants.Motors.shooter);
 
   public ShooterSubsystem() {
   //Start shooter motor
-  shooter.set(0.35);
+  }
+
+  public void setUpperMotorSlow(){
+    shooter.set(0.35);
+  }
+
+  public void setUpperMotorFast(){
+    shooter.set(0.6);
   }
 
   public void shoot(){
     //Start three elevator motors
-    elevatorLeft.set(0.5);
-    elevatorRight.set(0.5);
-    elevatorMiddle.set(0.5);
+    elevatorLeft.set(-0.7);
+    elevatorRight.set(0.7);
+    elevatorMiddle.set(-0.7);
   }
 
   public void stop(){

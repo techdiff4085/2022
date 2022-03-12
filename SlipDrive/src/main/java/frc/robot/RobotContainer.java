@@ -14,14 +14,17 @@ import frc.robot.commands.DriveAutonomousCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DropRakeCommand;
 import frc.robot.commands.RaiseRakeCommand;
+import frc.robot.commands.RunHorizontalMotors;
 import frc.robot.commands.ToggleFastModeCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -80,10 +83,29 @@ public class RobotContainer {
   buttonY.whenActive(new RaiseRakeCommand(m_intakeSubsystem));
 
   JoystickButton buttonA = new JoystickButton(m_shooterController, XboxController.Button.kA.value);
-  buttonA.whenActive(new DropRakeCommand(m_intakeSubsystem));
+  buttonA.whenActive(new DropRakeCommand(m_intakeSubsystem))
+  .whenActive(new InstantCommand(m_shooterSubsystem::setUpperMotorSlow));
+
+  JoystickButton shooterButtonB = new JoystickButton(m_shooterController, XboxController.Button.kB.value);
+  shooterButtonB.whenPressed(new RunHorizontalMotors(m_intakeSubsystem));
+
+  JoystickButton Xbutton = new JoystickButton(m_shooterController, XboxController.Button.kX.value);
+  Xbutton.whenActive(
+    new SequentialCommandGroup(
+      new InstantCommand(m_intakeSubsystem::stopHorizontalMotors),
+      new WaitCommand(2),
+      new InstantCommand(m_intakeSubsystem::invertHorizontalMotors))
+    );
 
   JoystickButton rightShoot = new JoystickButton(m_shooterController, XboxController.Button.kRightBumper.value);
-    rightShoot.whenPressed(new StartEndCommand(m_shooterSubsystem::shoot, m_shooterSubsystem::stop));
+    rightShoot.whenPressed(new InstantCommand(m_shooterSubsystem::shoot))
+    .whenReleased(new InstantCommand(m_shooterSubsystem::stop));
+
+    JoystickButton leftShoot = new JoystickButton(m_shooterController, XboxController.Axis.kLeftTrigger.value);
+    leftShoot.whenPressed(new InstantCommand(m_shooterSubsystem::setUpperMotorSlow));
+
+    JoystickButton shootRight = new JoystickButton(m_shooterController, XboxController.Axis.kRightTrigger.value);
+    shootRight.whenPressed(new InstantCommand(m_shooterSubsystem::setUpperMotorFast));
   //Confirm buttons with Brendon
   //Shooter - shoot button - motors ON (left & right & middle & top motor)
   //Shooter - shoot button - motors OFF (left & right & middle & top motor)
@@ -103,13 +125,4 @@ public class RobotContainer {
       new DriveAutonomousCommand(m_driveSubsystem, 0.5, 0, 0, 500)
     );
   }
-/*
-  public void RunHorizontalMotors(){
-    if (m_intakeSubsystem.isShooterLimitSwitchHit()){
-      m_intakeSubsystem.stopHorizontalMotors();
-    } else {
-      m_intakeSubsystem.startHorizontalMotors();
-    }
-  }
-  */
 }

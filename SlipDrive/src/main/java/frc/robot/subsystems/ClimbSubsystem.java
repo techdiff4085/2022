@@ -16,11 +16,11 @@ public class ClimbSubsystem extends SubsystemBase {
   public ClimbSubsystem(){}
 
   public void raiseClimb(){
-    climb.set(0.5);
+    climb.set(-1);
   }
 
   public void lowerClimb(){
-    climb.set(-0.5);
+    climb.set(1);
   }
 
   public void stopClimb(){

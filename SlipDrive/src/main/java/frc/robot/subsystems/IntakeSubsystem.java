@@ -29,7 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void liftRake() {
-    rakeLiftLower.set(0.8);
+    rakeLiftLower.set(0.9);
   }
 
   public boolean isUpperLimitSwitchHit(){
@@ -48,15 +48,13 @@ public class IntakeSubsystem extends SubsystemBase {
     return false;
   }
 
-  public boolean isShooterLimitSwitchHit(){
+  public void runIfLimitSwitchNotHit(){
     if (shooterLimitSwitch.get()){
       horizontalLeft.set(0);
       horizontalRight.set(0);
-      return true;
     } else {
-      horizontalLeft.set(0.5);
-      horizontalRight.set(0.5);
-      return false;
+      horizontalLeft.set(-1);
+      horizontalRight.set(1);
     }
   }
 
@@ -72,8 +70,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void startHorizontalMotors(){
     //This starts the motor on the rake.
-    horizontalLeft.set(0.5);
-    horizontalRight.set(0.5);
+    horizontalLeft.set(-1);
+    horizontalRight.set(1);
+  } 
+
+  public void invertHorizontalMotors(){
+    //This starts the motor on the rake.
+    horizontalLeft.set(1);
+    horizontalRight.set(-1);
   } 
 
   public void stopHorizontalMotors(){
