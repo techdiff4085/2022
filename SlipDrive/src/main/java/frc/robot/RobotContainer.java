@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SPI;
-import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -42,7 +39,8 @@ public class RobotContainer {
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_shooterController = new XboxController(1);
   private final DriveCommand m_DriveCommand = new DriveCommand(m_driveSubsystem, m_driverController);
-  private final AHRS navX = new AHRS(SPI.Port.kMXP);
+  private final RunHorizontalMotors m_runHorizMotorsCommand = new RunHorizontalMotors(m_intakeSubsystem);
+  //private final AHRS navX = new AHRS(SPI.Port.kMXP);
 
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -51,7 +49,9 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(m_DriveCommand);
+    m_intakeSubsystem.setDefaultCommand(m_runHorizMotorsCommand);
     SmartDashboard.putBoolean("Fastmode on", m_driveSubsystem.getisFastMode());
+    SmartDashboard.putBoolean("Horizontal Motors on", m_intakeSubsystem.isReversed());
   }
 
   /**
@@ -61,57 +61,59 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton buttonX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-    buttonX.whenActive(new ToggleFastModeCommand(m_driveSubsystem));
 
-    JoystickButton buttonB = new JoystickButton(m_driverController, XboxController.Button.kB.value);
-    buttonB.whenActive(new DriveAutonomousCommand(m_driveSubsystem, 0, 0, 1, 700));
+    //////////////////////////////
+    //Driver
 
-    JoystickButton leftBumb = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
-    leftBumb.whenHeld(new StartEndCommand(m_climbSubsystem::raiseClimb, m_climbSubsystem::stopClimb));
+    //Toggle Fast Mode
+    JoystickButton driverButtonX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+    driverButtonX.whenActive(new ToggleFastModeCommand(m_driveSubsystem));
 
-    JoystickButton rightBumb = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
-    rightBumb.whenHeld(new StartEndCommand(m_climbSubsystem::lowerClimb, m_climbSubsystem::stopClimb));
-  //Confirm buttons with Caitlyn
-  //Driver - X button - toggle drive speed (SLOW / FAST)
-  //Driver - left and/or right xbox toggle joysticks - Caitlyn's choice
-  //Driver - turn 180 degrees
-  //Driver - extend arm button
-  //Driver - retract arm button
+    //180 degree spin
+    JoystickButton driverButtonB = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+    driverButtonB.whenActive(new DriveAutonomousCommand(m_driveSubsystem, 0, 0, 1, 700));
 
-  JoystickButton buttonY = new JoystickButton(m_shooterController, XboxController.Button.kY.value);
-  buttonY.whenActive(new RaiseRakeCommand(m_intakeSubsystem));
+    //Raise climb arms
+    JoystickButton driverLeftBump = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+    driverLeftBump.whenHeld(new StartEndCommand(m_climbSubsystem::raiseClimb, m_climbSubsystem::stopClimb));
 
-  JoystickButton buttonA = new JoystickButton(m_shooterController, XboxController.Button.kA.value);
-  buttonA.whenActive(new DropRakeCommand(m_intakeSubsystem))
-  .whenActive(new InstantCommand(m_shooterSubsystem::setUpperMotorSlow));
+    //Lower Climb arms
+    JoystickButton driverRightBump = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+    driverRightBump.whenHeld(new StartEndCommand(m_climbSubsystem::lowerClimb, m_climbSubsystem::stopClimb));
 
-  JoystickButton shooterButtonB = new JoystickButton(m_shooterController, XboxController.Button.kB.value);
-  shooterButtonB.whenPressed(new RunHorizontalMotors(m_intakeSubsystem));
+    //////////////////////////////
+    //Shooter
 
-  JoystickButton Xbutton = new JoystickButton(m_shooterController, XboxController.Button.kX.value);
-  Xbutton.whenActive(
-    new SequentialCommandGroup(
-      new InstantCommand(m_intakeSubsystem::stopHorizontalMotors),
-      new WaitCommand(2),
-      new InstantCommand(m_intakeSubsystem::invertHorizontalMotors))
-    );
+    //Raise Rake
+    JoystickButton shooterButtonY = new JoystickButton(m_shooterController, XboxController.Button.kY.value);
+    shooterButtonY.whenActive(new RaiseRakeCommand(m_intakeSubsystem));
 
-  JoystickButton rightShoot = new JoystickButton(m_shooterController, XboxController.Button.kRightBumper.value);
-    rightShoot.whenPressed(new InstantCommand(m_shooterSubsystem::shoot))
+    //Lower Rake
+    JoystickButton shooterButtonA = new JoystickButton(m_shooterController, XboxController.Button.kA.value);
+    shooterButtonA.whenActive(new DropRakeCommand(m_intakeSubsystem))
+    .whenActive(new InstantCommand(m_shooterSubsystem::startShooterMotor));
+
+    //Start Horiz Motors (normal direction)
+    JoystickButton shooterButtonB = new JoystickButton(m_shooterController, XboxController.Button.kB.value);
+    shooterButtonB.whenPressed(new InstantCommand(m_intakeSubsystem::setHorizontalMotorsForward));
+  
+    //Reverse Horiz Motors
+    //JoystickButton shooterButtonX = new JoystickButton(m_shooterController, XboxController.Button.kX.value);
+    //shooterButtonX.whenPressed(new InstantCommand(m_intakeSubsystem::setHorizontalMotorsReverse));
+
+    //Index the ball to shoot
+    JoystickButton shooterRightBump = new JoystickButton(m_shooterController, XboxController.Button.kRightBumper.value);
+    shooterRightBump.whenPressed(new InstantCommand(m_shooterSubsystem::shoot))
     .whenReleased(new InstantCommand(m_shooterSubsystem::stop));
 
-    JoystickButton leftShoot = new JoystickButton(m_shooterController, XboxController.Axis.kLeftTrigger.value);
-    leftShoot.whenPressed(new InstantCommand(m_shooterSubsystem::setUpperMotorSlow));
+    //Increase Motor Speed
+    JoystickButton shooterBackButton = new JoystickButton(m_shooterController, XboxController.Button.kBack.value);
+    shooterBackButton.whenPressed(new InstantCommand(m_shooterSubsystem::increaseMotorSpeed));
 
-    JoystickButton shootRight = new JoystickButton(m_shooterController, XboxController.Axis.kRightTrigger.value);
-    shootRight.whenPressed(new InstantCommand(m_shooterSubsystem::setUpperMotorFast));
-  //Confirm buttons with Brendon
-  //Shooter - shoot button - motors ON (left & right & middle & top motor)
-  //Shooter - shoot button - motors OFF (left & right & middle & top motor)
-  //Shooter - button to drop rake & start Rake Intake motors + 2 Horizontal Intake motors
-  //Shooter - button to turn off the 3 Rake & Horizontal motors & lift rake (may be needed during 'Hang"')
-  }
+    //Decrease Motor Speed
+    JoystickButton shooterStartButton = new JoystickButton(m_shooterController, XboxController.Button.kStart.value);
+    shooterStartButton.whenPressed(new InstantCommand(m_shooterSubsystem::decreaseMotorSpeed));
+ }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -121,8 +123,11 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new SequentialCommandGroup(
-      new DriveAutonomousCommand(m_driveSubsystem, -0.5, 0, 0, 500),
-      new DriveAutonomousCommand(m_driveSubsystem, 0.5, 0, 0, 500)
+      new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmac),
+      new WaitCommand(4),
+      new InstantCommand(m_shooterSubsystem::shoot),
+      new WaitCommand(3),
+      new DriveAutonomousCommand(m_driveSubsystem, 0.2, 0, 0, 1100)
     );
   }
 }

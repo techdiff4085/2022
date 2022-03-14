@@ -8,6 +8,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -16,17 +17,34 @@ public class ShooterSubsystem extends SubsystemBase {
   private WPI_VictorSPX elevatorRight = new WPI_VictorSPX(Constants.Motors.elevatorRight);
   private WPI_VictorSPX elevatorMiddle = new WPI_VictorSPX(Constants.Motors.elevatorMiddle);
   private WPI_TalonFX shooter = new WPI_TalonFX(Constants.Motors.shooter);
+  private double speed = 0.4;
 
   public ShooterSubsystem() {
   //Start shooter motor
   }
 
-  public void setUpperMotorSlow(){
-    shooter.set(0.35);
+  public void increaseMotorSpeed(){
+    speed+= 0.1;
+    shooter.set(speed); 
+    SmartDashboard.putNumber("Shooter Speed", speed);
   }
 
-  public void setUpperMotorFast(){
-    shooter.set(0.6);
+
+  public void decreaseMotorSpeed(){
+    speed-= 0.1;
+    shooter.set(speed);
+    SmartDashboard.putNumber("Shooter Speed", speed);
+  }
+
+  public void setMotorSpeedForTarmac(){
+    speed = 0.4;
+    shooter.set(speed);
+    SmartDashboard.putNumber("Shooter Speed", speed);
+  }
+
+  public void startShooterMotor(){
+    shooter.set(speed);
+    SmartDashboard.putNumber("Shooter Speed", speed);
   }
 
   public void shoot(){

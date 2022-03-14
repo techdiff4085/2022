@@ -38,9 +38,9 @@ public class DriveCommand extends CommandBase {
     double z = m_xboxController.getRightX();
 
     if (m_drivesubsystem.getisFastMode()){
-      m_drivesubsystem.drive(y, x, z);
+      m_drivesubsystem.drive(Math.abs(y)*y/2, Math.abs(x)*x/2, Math.abs(z)*z/2);
     } else {
-      m_drivesubsystem.drive(y/3, x/3, z/3);
+      m_drivesubsystem.drive(Math.abs(y)*y/5, Math.abs(x)*x/5, Math.abs(z)*z/5);
     }
   }
 

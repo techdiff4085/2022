@@ -31,7 +31,7 @@ public class RaiseRakeCommand extends CommandBase {
   @Override
   public void execute() {
     m_intakeSubsystem.stopIntake();
-   m_intakeSubsystem.liftRake();
+    m_intakeSubsystem.liftRake();
   }
 
   // Called once the command ends or is interrupted.

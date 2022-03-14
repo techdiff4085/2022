@@ -19,13 +19,15 @@ public class IntakeSubsystem extends SubsystemBase {
   private DigitalInput upperLimitSwitch = new DigitalInput(Constants.LimitSwitches.RAKEUP);
   private DigitalInput lowerLimitSwitch = new DigitalInput(Constants.LimitSwitches.RAKEDOWN);
   private DigitalInput shooterLimitSwitch = new DigitalInput(Constants.LimitSwitches.SHOOT);
-  
+
+  private boolean isReversed = false;
+  private boolean isStopped = false;
 
   public IntakeSubsystem() {}
 
   public void dropRake() {
    //This lowers rakeLifeLower until it hits the lower limit switch.
-    rakeLiftLower.set(-0.2);
+    rakeLiftLower.set(-0.3);
   }
 
   public void liftRake() {
@@ -49,7 +51,10 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void runIfLimitSwitchNotHit(){
-    if (shooterLimitSwitch.get()){
+    if (isReversed){
+      horizontalLeft.set(1);
+      horizontalRight.set(-1);
+    } else if (shooterLimitSwitch.get() || this.isStopped){
       horizontalLeft.set(0);
       horizontalRight.set(0);
     } else {
@@ -68,23 +73,19 @@ public class IntakeSubsystem extends SubsystemBase {
     rakeIntake.set(0);
   } 
 
-  public void startHorizontalMotors(){
-    //This starts the motor on the rake.
-    horizontalLeft.set(-1);
-    horizontalRight.set(1);
-  } 
 
-  public void invertHorizontalMotors(){
+  public void setHorizontalMotorsForward(){
     //This starts the motor on the rake.
-    horizontalLeft.set(1);
-    horizontalRight.set(-1);
+    this.isStopped = false;
+    this.isReversed = false;
   } 
+  public void setHorizontalMotorsReverse(){
+    this.isStopped = true;
+  }
 
-  public void stopHorizontalMotors(){
-    //This starts the motor on the rake.
-    horizontalLeft.set(0);
-    horizontalRight.set(0);
-  } 
+  public boolean isReversed(){
+    return this.isReversed;
+  }
 
   @Override
   public void periodic() {

@@ -12,15 +12,20 @@ import frc.robot.Constants;
 public class ClimbSubsystem extends SubsystemBase {
   
  private WPI_VictorSPX climb = new WPI_VictorSPX(Constants.Motors.Climb);
+ private boolean areArmsRaised = false;
 
   public ClimbSubsystem(){}
 
   public void raiseClimb(){
     climb.set(-1);
+    areArmsRaised = true;
   }
 
   public void lowerClimb(){
-    climb.set(1);
+    if (areArmsRaised){
+      climb.set(1);
+    }
+    
   }
 
   public void stopClimb(){
