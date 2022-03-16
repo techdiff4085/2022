@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -12,7 +13,7 @@ import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
   private WPI_VictorSPX rakeLiftLower = new WPI_VictorSPX(Constants.Motors.RakeLiftLower);
-  private WPI_VictorSPX rakeIntake = new WPI_VictorSPX(Constants.Motors.RakeIntake);
+  private WPI_TalonFX rakeIntake = new WPI_TalonFX(Constants.Motors.RakeIntake);
   private WPI_VictorSPX horizontalRight = new WPI_VictorSPX(Constants.Motors.HorizontalRight);
   private WPI_VictorSPX horizontalLeft = new WPI_VictorSPX(Constants.Motors.HorizontalLeft);
   
@@ -65,7 +66,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void startIntake(){
     //This starts the motor on the rake.
-    rakeIntake.set(1);
+    rakeIntake.set(0.30);
   } 
 
   public void stopIntake(){
@@ -79,7 +80,7 @@ public class IntakeSubsystem extends SubsystemBase {
     this.isStopped = false;
     this.isReversed = false;
   } 
-  public void setHorizontalMotorsReverse(){
+  public void stopHorizontalMotors(){
     this.isStopped = true;
   }
 

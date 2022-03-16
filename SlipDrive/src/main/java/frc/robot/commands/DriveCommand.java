@@ -34,8 +34,8 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
     double y = m_xboxController.getLeftY();
-    double x = m_xboxController.getLeftX()*-1;
-    double z = m_xboxController.getRightX();
+    double x = m_xboxController.getLeftX();
+    double z = m_xboxController.getRightX()*-1;
 
     if (m_drivesubsystem.getisFastMode()){
       m_drivesubsystem.drive(Math.abs(y)*y/2, Math.abs(x)*x/2, Math.abs(z)*z/2);

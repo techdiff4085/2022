@@ -75,7 +75,8 @@ public class RobotContainer {
 
     //Raise climb arms
     JoystickButton driverLeftBump = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
-    driverLeftBump.whenHeld(new StartEndCommand(m_climbSubsystem::raiseClimb, m_climbSubsystem::stopClimb));
+    driverLeftBump.whenHeld(new StartEndCommand(m_climbSubsystem::raiseClimb, m_climbSubsystem::stopClimb))
+    .whenPressed(new InstantCommand(m_intakeSubsystem::stopHorizontalMotors));
 
     //Lower Climb arms
     JoystickButton driverRightBump = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
@@ -97,22 +98,23 @@ public class RobotContainer {
     JoystickButton shooterButtonB = new JoystickButton(m_shooterController, XboxController.Button.kB.value);
     shooterButtonB.whenPressed(new InstantCommand(m_intakeSubsystem::setHorizontalMotorsForward));
   
-    //Reverse Horiz Motors
-    //JoystickButton shooterButtonX = new JoystickButton(m_shooterController, XboxController.Button.kX.value);
-    //shooterButtonX.whenPressed(new InstantCommand(m_intakeSubsystem::setHorizontalMotorsReverse));
+    //Pop the Rake
+    JoystickButton shooterButtonX = new JoystickButton(m_shooterController, XboxController.Button.kX.value);
+    shooterButtonX.whenPressed(new RaiseRakeCommand(m_intakeSubsystem))
+    .whenReleased(new DropRakeCommand(m_intakeSubsystem));
 
     //Index the ball to shoot
     JoystickButton shooterRightBump = new JoystickButton(m_shooterController, XboxController.Button.kRightBumper.value);
     shooterRightBump.whenPressed(new InstantCommand(m_shooterSubsystem::shoot))
     .whenReleased(new InstantCommand(m_shooterSubsystem::stop));
 
-    //Increase Motor Speed
-    JoystickButton shooterBackButton = new JoystickButton(m_shooterController, XboxController.Button.kBack.value);
-    shooterBackButton.whenPressed(new InstantCommand(m_shooterSubsystem::increaseMotorSpeed));
-
     //Decrease Motor Speed
+    JoystickButton shooterBackButton = new JoystickButton(m_shooterController, XboxController.Button.kBack.value);
+    shooterBackButton.whenPressed(new InstantCommand(m_shooterSubsystem::decreaseMotorSpeed));
+
+    //Increase Motor Speed
     JoystickButton shooterStartButton = new JoystickButton(m_shooterController, XboxController.Button.kStart.value);
-    shooterStartButton.whenPressed(new InstantCommand(m_shooterSubsystem::decreaseMotorSpeed));
+    shooterStartButton.whenPressed(new InstantCommand(m_shooterSubsystem::increaseMotorSpeed));
  }
 
   /**
@@ -123,10 +125,12 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new SequentialCommandGroup(
+      new DropRakeCommand(m_intakeSubsystem),
       new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmac),
       new WaitCommand(4),
       new InstantCommand(m_shooterSubsystem::shoot),
       new WaitCommand(3),
+      new InstantCommand(m_shooterSubsystem::stop),
       new DriveAutonomousCommand(m_driveSubsystem, 0.2, 0, 0, 1100)
     );
   }

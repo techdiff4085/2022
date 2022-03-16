@@ -25,26 +25,32 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void increaseMotorSpeed(){
     speed+= 0.1;
+    if (speed > 1){
+      speed = 1;
+    }
     shooter.set(speed); 
-    SmartDashboard.putNumber("Shooter Speed", speed);
+    SmartDashboard.putNumber("Shooter Speed", speed*100);
   }
 
 
   public void decreaseMotorSpeed(){
     speed-= 0.1;
+    if (speed < 0.3){
+      speed = 0.3;
+    }
     shooter.set(speed);
-    SmartDashboard.putNumber("Shooter Speed", speed);
+    SmartDashboard.putNumber("Shooter Speed", speed*100);
   }
 
   public void setMotorSpeedForTarmac(){
     speed = 0.4;
     shooter.set(speed);
-    SmartDashboard.putNumber("Shooter Speed", speed);
+    SmartDashboard.putNumber("Shooter Speed", speed*100);
   }
 
   public void startShooterMotor(){
     shooter.set(speed);
-    SmartDashboard.putNumber("Shooter Speed", speed);
+    SmartDashboard.putNumber("Shooter Speed", speed*100);
   }
 
   public void shoot(){
