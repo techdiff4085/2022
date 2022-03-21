@@ -76,7 +76,8 @@ public class RobotContainer {
     //Raise climb arms
     JoystickButton driverLeftBump = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
     driverLeftBump.whenHeld(new StartEndCommand(m_climbSubsystem::raiseClimb, m_climbSubsystem::stopClimb))
-    .whenPressed(new InstantCommand(m_intakeSubsystem::stopHorizontalMotors));
+    .whenPressed(new InstantCommand(m_intakeSubsystem::stopHorizontalMotors))
+    .whenPressed(new InstantCommand(m_driveSubsystem::setToSlowMode));
 
     //Lower Climb arms
     JoystickButton driverRightBump = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);

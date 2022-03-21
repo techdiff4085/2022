@@ -32,7 +32,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void liftRake() {
-    rakeLiftLower.set(0.9);
+    rakeLiftLower.set(1);
   }
 
   public boolean isUpperLimitSwitchHit(){
@@ -66,7 +66,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void startIntake(){
     //This starts the motor on the rake.
-    rakeIntake.set(0.30);
+    rakeIntake.set(0.29
+    );
   } 
 
   public void stopIntake(){

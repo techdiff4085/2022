@@ -31,6 +31,10 @@ public class DriveSubsystem extends SubsystemBase {
   public void drive(double y, double x, double z){
     mecanumDrive.driveCartesian(y, x, z);
   }
+
+  public void setToSlowMode() {
+    isFastMode = false;
+  }
   
   public void toggleFastMode(){
     isFastMode = !isFastMode;
