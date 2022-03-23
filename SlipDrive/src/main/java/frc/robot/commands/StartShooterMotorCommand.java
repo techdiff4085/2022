@@ -4,20 +4,21 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ToggleFastModeCommand extends CommandBase {
+public class StartShooterMotorCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveSubsystem m_subsystem;
+  private final ShooterSubsystem m_subsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ToggleFastModeCommand(DriveSubsystem subsystem) {
+  public StartShooterMotorCommand(ShooterSubsystem subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -25,13 +26,13 @@ public class ToggleFastModeCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_subsystem.startShooterMotor();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_subsystem.toggleFastMode();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -40,6 +41,6 @@ public class ToggleFastModeCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -4,24 +4,25 @@
 
 package frc.robot.commands;
 
+import frc.robot.SpeedMode;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class DriveCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveSubsystem m_drivesubsystem;
-  private final XboxController m_xboxController;
+  private final Joystick m_joystick;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveSubsystem subsystem, XboxController xboxController) {
+  public DriveCommand(DriveSubsystem subsystem, Joystick m_driverController) {
     m_drivesubsystem = subsystem;
-    m_xboxController = xboxController;
+    m_joystick = m_driverController;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -33,14 +34,18 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double y = m_xboxController.getLeftY();
-    double x = m_xboxController.getLeftX();
-    double z = m_xboxController.getRightX()*-1;
+    double y = m_joystick.getY();
+    double x = m_joystick.getX();
+    double z = m_joystick.getRawAxis(3)*-1;
 
-    if (m_drivesubsystem.getisFastMode()){
+    if (m_drivesubsystem.getSpeedMode() == SpeedMode.FAST){
+      m_drivesubsystem.drive(Math.abs(y)*y/1.4, Math.abs(x)*x/1.4, Math.abs(z)*z/1.4);
+    }
+    else if (m_drivesubsystem.getSpeedMode() == SpeedMode.MEDIUM){
       m_drivesubsystem.drive(Math.abs(y)*y/2, Math.abs(x)*x/2, Math.abs(z)*z/2);
-    } else {
-      m_drivesubsystem.drive(Math.abs(y)*y/5, Math.abs(x)*x/5, Math.abs(z)*z/5);
+    }
+    else {
+      m_drivesubsystem.drive(Math.abs(y)*y/8, Math.abs(x)*x/6, Math.abs(z)*z/4);
     }
   }
 

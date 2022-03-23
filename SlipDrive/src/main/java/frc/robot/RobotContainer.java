@@ -5,14 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.commands.DriveAutonomousCommand;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DropRakeCommand;
-import frc.robot.commands.RaiseRakeCommand;
 import frc.robot.commands.RunHorizontalMotors;
-import frc.robot.commands.ToggleFastModeCommand;
+import frc.robot.commands.StartShooterMotorCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -33,13 +32,15 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  private final XboxController m_driverController = new XboxController(0);
+  private final Joystick m_driverController = new Joystick(0);
   private final XboxController m_shooterController = new XboxController(1);
+  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
   private final DriveCommand m_DriveCommand = new DriveCommand(m_driveSubsystem, m_driverController);
   private final RunHorizontalMotors m_runHorizMotorsCommand = new RunHorizontalMotors(m_intakeSubsystem);
+  private final StartShooterMotorCommand m_startShooterMotorCommand = new StartShooterMotorCommand(m_shooterSubsystem);
+  private final Spark m_lights = new Spark(Constants.Extra.LIGHTS);
   //private final AHRS navX = new AHRS(SPI.Port.kMXP);
 
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -50,8 +51,8 @@ public class RobotContainer {
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(m_DriveCommand);
     m_intakeSubsystem.setDefaultCommand(m_runHorizMotorsCommand);
-    SmartDashboard.putBoolean("Fastmode on", m_driveSubsystem.getisFastMode());
-    SmartDashboard.putBoolean("Horizontal Motors on", m_intakeSubsystem.isReversed());
+    m_shooterSubsystem.setDefaultCommand(m_startShooterMotorCommand);
+    m_lights.set(0.89);
   }
 
   /**
@@ -65,44 +66,29 @@ public class RobotContainer {
     //////////////////////////////
     //Driver
 
-    //Toggle Fast Mode
-    JoystickButton driverButtonX = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-    driverButtonX.whenActive(new ToggleFastModeCommand(m_driveSubsystem));
+    //Set Slow Mode
+    JoystickButton slowModeButton = new JoystickButton(m_driverController,5);
+    slowModeButton.whenActive(new InstantCommand(m_driveSubsystem::setSlowMode));
+    
+    //Set Medium Mode
+    JoystickButton medModeButton = new JoystickButton(m_driverController,2);
+    medModeButton.whenActive(new InstantCommand(m_driveSubsystem::setMediumMode));
 
-    //180 degree spin
-    JoystickButton driverButtonB = new JoystickButton(m_driverController, XboxController.Button.kB.value);
-    driverButtonB.whenActive(new DriveAutonomousCommand(m_driveSubsystem, 0, 0, 1, 700));
+    //Set Fast Mode
+    JoystickButton fastModeButton = new JoystickButton(m_driverController,6);
+    fastModeButton.whenActive(new InstantCommand(m_driveSubsystem::setFastMode));
 
     //Raise climb arms
-    JoystickButton driverLeftBump = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+    JoystickButton driverLeftBump = new JoystickButton(m_driverController, 3);
     driverLeftBump.whenHeld(new StartEndCommand(m_climbSubsystem::raiseClimb, m_climbSubsystem::stopClimb))
-    .whenPressed(new InstantCommand(m_intakeSubsystem::stopHorizontalMotors))
-    .whenPressed(new InstantCommand(m_driveSubsystem::setToSlowMode));
+    .whenPressed(new InstantCommand(m_driveSubsystem::setSlowMode));
 
     //Lower Climb arms
-    JoystickButton driverRightBump = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+    JoystickButton driverRightBump = new JoystickButton(m_driverController, 4);
     driverRightBump.whenHeld(new StartEndCommand(m_climbSubsystem::lowerClimb, m_climbSubsystem::stopClimb));
 
     //////////////////////////////
     //Shooter
-
-    //Raise Rake
-    JoystickButton shooterButtonY = new JoystickButton(m_shooterController, XboxController.Button.kY.value);
-    shooterButtonY.whenActive(new RaiseRakeCommand(m_intakeSubsystem));
-
-    //Lower Rake
-    JoystickButton shooterButtonA = new JoystickButton(m_shooterController, XboxController.Button.kA.value);
-    shooterButtonA.whenActive(new DropRakeCommand(m_intakeSubsystem))
-    .whenActive(new InstantCommand(m_shooterSubsystem::startShooterMotor));
-
-    //Start Horiz Motors (normal direction)
-    JoystickButton shooterButtonB = new JoystickButton(m_shooterController, XboxController.Button.kB.value);
-    shooterButtonB.whenPressed(new InstantCommand(m_intakeSubsystem::setHorizontalMotorsForward));
-  
-    //Pop the Rake
-    JoystickButton shooterButtonX = new JoystickButton(m_shooterController, XboxController.Button.kX.value);
-    shooterButtonX.whenPressed(new RaiseRakeCommand(m_intakeSubsystem))
-    .whenReleased(new DropRakeCommand(m_intakeSubsystem));
 
     //Index the ball to shoot
     JoystickButton shooterRightBump = new JoystickButton(m_shooterController, XboxController.Button.kRightBumper.value);
@@ -126,7 +112,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new SequentialCommandGroup(
-      new DropRakeCommand(m_intakeSubsystem),
       new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmac),
       new WaitCommand(4),
       new InstantCommand(m_shooterSubsystem::shoot),

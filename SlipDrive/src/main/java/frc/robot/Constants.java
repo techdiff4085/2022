@@ -33,11 +33,13 @@ public final class Constants {
         public static final double KD = 0.001;
     }   
     public static final class LimitSwitches{
-        public static final int RAKEUP = 7;
+        public static final int HORIZANTALLIMIT = 7;
         public static final int RAKEDOWN = 8;
         public static final int SHOOT = 9;
     }
-
+    public static final class Extra{
+        public static final int LIGHTS = 0;
+    }
 
 
 

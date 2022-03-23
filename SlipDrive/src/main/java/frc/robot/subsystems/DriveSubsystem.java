@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.SpeedMode;
 
 public class DriveSubsystem extends SubsystemBase {
   private WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.Motors.LeftFrontWheel);
@@ -19,7 +20,9 @@ public class DriveSubsystem extends SubsystemBase {
   private WPI_TalonFX backRight = new WPI_TalonFX(Constants.Motors.RightBackWheel);
 
   private MecanumDrive mecanumDrive;
-  private boolean isFastMode = true;
+
+  private SpeedMode m_speedMode = SpeedMode.MEDIUM;
+  
     /** Creates a new ExampleSubsystem. */
   public DriveSubsystem() {
     mecanumDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
@@ -32,17 +35,23 @@ public class DriveSubsystem extends SubsystemBase {
     mecanumDrive.driveCartesian(y, x, z);
   }
 
-  public void setToSlowMode() {
-    isFastMode = false;
-  }
-  
-  public void toggleFastMode(){
-    isFastMode = !isFastMode;
-    SmartDashboard.putBoolean("Fastmode on", isFastMode);
+  public void setSlowMode() {
+    m_speedMode = SpeedMode.SLOW;
+    SmartDashboard.putString("Speed", "Slow");
   }
 
-  public boolean getisFastMode(){
-    return isFastMode;
+  public void setMediumMode() {
+    m_speedMode = SpeedMode.MEDIUM;
+    SmartDashboard.putString("Speed", "Medium");
+  }
+
+  public void setFastMode() {
+    m_speedMode = SpeedMode.FAST;
+    SmartDashboard.putString("Speed", "Fast");
+  }
+  
+  public SpeedMode getSpeedMode(){
+    return m_speedMode;
   }
 
   public void turnToAngle(double turnToAngle, AHRS navX) {
@@ -59,6 +68,4 @@ public class DriveSubsystem extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
-
-
 }
