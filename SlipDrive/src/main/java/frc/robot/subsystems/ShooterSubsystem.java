@@ -42,8 +42,14 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Shooter Speed", speed*100);
   }
 
-  public void setMotorSpeedForTarmac(){
-    speed = 0.4;
+  public void setMotorSpeedForTarmacLow(){
+    speed = 0.40;
+    shooter.set(speed);
+    SmartDashboard.putNumber("Shooter Speed", speed*100);
+  }
+
+  public void setMotorSpeedForTarmacHigh(){
+    speed = 0.95;
     shooter.set(speed);
     SmartDashboard.putNumber("Shooter Speed", speed*100);
   }

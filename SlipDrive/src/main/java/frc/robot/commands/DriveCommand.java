@@ -39,13 +39,13 @@ public class DriveCommand extends CommandBase {
     double z = m_joystick.getRawAxis(3)*-1;
 
     if (m_drivesubsystem.getSpeedMode() == SpeedMode.FAST){
-      m_drivesubsystem.drive(Math.abs(y)*y/1.4, Math.abs(x)*x/1.4, Math.abs(z)*z/1.4);
+      m_drivesubsystem.drive(Math.abs(y)*y/1.4, Math.abs(x)*x/1.4, Math.abs(z)*z/2.5);
     }
     else if (m_drivesubsystem.getSpeedMode() == SpeedMode.MEDIUM){
-      m_drivesubsystem.drive(Math.abs(y)*y/2, Math.abs(x)*x/2, Math.abs(z)*z/2);
+      m_drivesubsystem.drive(Math.abs(y)*y/2, Math.abs(x)*x/2, Math.abs(z)*z/3.25);
     }
     else {
-      m_drivesubsystem.drive(Math.abs(y)*y/8, Math.abs(x)*x/6, Math.abs(z)*z/4);
+      m_drivesubsystem.drive(Math.abs(y)*y/8, Math.abs(x)*x/4, Math.abs(z)*z/4);
     }
   }
 

@@ -112,12 +112,26 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return new SequentialCommandGroup(
-      new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmac),
+
+// To change between atonomous modes, commen/uncomment the corresponding code below
+
+    // Autonomous - LOW HUB
+     
+      new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmacLow),   
       new WaitCommand(4),
       new InstantCommand(m_shooterSubsystem::shoot),
       new WaitCommand(3),
       new InstantCommand(m_shooterSubsystem::stop),
       new DriveAutonomousCommand(m_driveSubsystem, 0.2, 0, 0, 1100)
+    
+
+    // Autonomous - HIGH HUB
+     //new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmacHigh),
+     //new DriveAutonomousCommand(m_driveSubsystem, 0.2, 0, 0, 3500),
+     //new WaitCommand(3),
+     //new InstantCommand(m_shooterSubsystem::shoot),
+     //new WaitCommand(3)
+
     );
   }
 }
