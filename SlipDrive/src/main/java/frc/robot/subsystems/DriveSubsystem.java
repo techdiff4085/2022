@@ -21,7 +21,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   private MecanumDrive mecanumDrive;
 
-  private SpeedMode m_speedMode = SpeedMode.MEDIUM;
+  private SpeedMode m_speedMode = SpeedMode.FAST; // default drive speed
   
     /** Creates a new ExampleSubsystem. */
   public DriveSubsystem() {

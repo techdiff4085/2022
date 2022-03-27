@@ -41,15 +41,15 @@ public class ShooterSubsystem extends SubsystemBase {
     shooter.set(speed);
     SmartDashboard.putNumber("Shooter Speed", speed*100);
   }
-
+// used for autonomous
   public void setMotorSpeedForTarmacLow(){
-    speed = 0.40;
+    speed = 0.40; // dont ever change this 
     shooter.set(speed);
     SmartDashboard.putNumber("Shooter Speed", speed*100);
   }
-
+//used for autonomous
   public void setMotorSpeedForTarmacHigh(){
-    speed = 0.95;
+    speed = 0.90;// was .95 (on target but bounces out), trying .90
     shooter.set(speed);
     SmartDashboard.putNumber("Shooter Speed", speed*100);
   }

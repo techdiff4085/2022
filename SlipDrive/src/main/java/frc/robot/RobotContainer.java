@@ -51,8 +51,11 @@ public class RobotContainer {
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(m_DriveCommand);
     m_intakeSubsystem.setDefaultCommand(m_runHorizMotorsCommand);
+   
+//3/24
     m_shooterSubsystem.setDefaultCommand(m_startShooterMotorCommand);
-    m_lights.set(0.89);
+    m_lights.set(0.61);//.61 red blue .87
+    
   }
 
   /**
@@ -87,6 +90,11 @@ public class RobotContainer {
     JoystickButton driverRightBump = new JoystickButton(m_driverController, 4);
     driverRightBump.whenHeld(new StartEndCommand(m_climbSubsystem::lowerClimb, m_climbSubsystem::stopClimb));
 
+    //Drive forward a little bit (3/24)
+    JoystickButton driveForward = new JoystickButton(m_driverController, 1);
+     driveForward.whenActive(new DriveAutonomousCommand(m_driveSubsystem, -0.2, 0.0, 0, 300));// autonomous is 1100
+    //driveForward.whenHeld(new StartEndCommand(m_driveSubsystem::drive(0.2, 0.0, 0.0)));
+
     //////////////////////////////
     //Shooter
 
@@ -115,7 +123,7 @@ public class RobotContainer {
 
 // To change between atonomous modes, commen/uncomment the corresponding code below
 
-    // Autonomous - LOW HUB
+    // Autonomous - LOW HUB - 1 ball only
      
       new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmacLow),   
       new WaitCommand(4),
@@ -124,14 +132,35 @@ public class RobotContainer {
       new InstantCommand(m_shooterSubsystem::stop),
       new DriveAutonomousCommand(m_driveSubsystem, 0.2, 0, 0, 1100)
     
+    // Autonomous - LOW HUB - 2 balls only
+     /* untested autonomous 
+      new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmacLow),   
+      new WaitCommand(3),
+      new InstantCommand(m_shooterSubsystem::shoot),
+      new WaitCommand(1),
+      // turn 180
+      new DriveAutonomousCommand(m_driveSubsystem, 0, 0, 0.6, 260),
+      // drive forward (setting X should drive forward)
+      new DriveAutonomousCommand(m_driveSubsystem, 0.0, 0.2, 0, 1100),
+      new DriveAutonomousCommand(m_driveSubsystem, 0.2, 0.0, 0, 500),
+      // turn 180
+      new DriveAutonomousCommand(m_driveSubsystem, 0, 0, 0.6, 260),
+      //shoot
+      new InstantCommand(m_shooterSubsystem::shoot),
+      new WaitCommand(1),
+      new InstantCommand(m_shooterSubsystem::stop)
+      */
 
-    // Autonomous - HIGH HUB
-     //new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmacHigh),
-     //new DriveAutonomousCommand(m_driveSubsystem, 0.2, 0, 0, 3500),
-     //new WaitCommand(3),
-     //new InstantCommand(m_shooterSubsystem::shoot),
-     //new WaitCommand(3)
-
+    // Autonomous - HIGH HUB - don't use, distance isn't correct.
+    /*
+    new InstantCommand(m_shooterSubsystem::setMotorSpeedForTarmacHigh),
+    new DriveAutonomousCommand(m_driveSubsystem, 0.2, 0, 0, 3400), // was 3500 back up a bit more
+    new WaitCommand(3),
+    new InstantCommand(m_shooterSubsystem::shoot),
+    new WaitCommand(3),
+    //3/24 added
+    new InstantCommand(m_shooterSubsystem::stop)
+    */
     );
   }
 }

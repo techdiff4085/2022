@@ -35,7 +35,7 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
     double y = m_joystick.getY();
-    double x = m_joystick.getX();
+    double x = m_joystick.getX()*-1; //m_joystick.getX();
     double z = m_joystick.getRawAxis(3)*-1;
 
     if (m_drivesubsystem.getSpeedMode() == SpeedMode.FAST){
